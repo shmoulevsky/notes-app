@@ -33,6 +33,7 @@ class NoteController extends Controller
         $data = $request->validated();
         
         $data['user_id'] = Auth::user()->id;
+        $data['is_active'] = intval($data['is_active']);
 
         $note = Note::create($data);
 
@@ -62,7 +63,8 @@ class NoteController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-
+        $data['is_active'] = intval($data['is_active']);
+        
         $note->update($data);
 
         return response(['project' => new NoteResource($note), 'message' => 'Update successfully'], 200);

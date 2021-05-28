@@ -33,6 +33,7 @@ class ThemeController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
+        $data['is_active'] = intval($data['is_active']);
         $theme = Theme::create($data);
 
         return response(['note' => new ThemeResource($theme), 'message' => 'Created successfully'], 201);

@@ -54,7 +54,7 @@ $(function(){
             let theme_id = $(this).data('theme-id');
             
              $.ajax({
-             url: "/api/notes/" + id,
+             url: "/api/notes" + id,
              type: "PATCH",
              dataType: "json",
                  data: ({name, text, theme_id, is_active : true, api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
@@ -103,7 +103,7 @@ $(function(){
             console.log(name);
 
              $.ajax({
-             url: "/api/notes/",
+             url: "/api/notes",
              type: "POST",
              dataType: "json",
                  data: ({name : name, theme_id, is_active : true, text : 'новый', api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
@@ -149,7 +149,7 @@ $(function(){
             console.log(name);
 
              $.ajax({
-             url: "/api/themes/",
+             url: "/api/themes",
              type: "POST",
              dataType: "json",
                  data: ({name : name, is_active : true, description , api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
