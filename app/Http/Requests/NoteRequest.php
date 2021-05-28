@@ -26,7 +26,7 @@ class NoteRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'text' => 'required|max:255',
+            'text' => 'required',
             'is_active' => 'required',
             'theme_id' => ['required', 'exists:themes,id'],
         ];
