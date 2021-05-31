@@ -34,11 +34,11 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-sm-inline-block">
-        <a href="/" class="nav-link">Главная</a>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/"  >Главная</a>
       </li>
-      <li class="nav-item d-sm-inline-block">
-        <a href="/themes" class="nav-link">Темы</a>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/themes">Темы</a>
       </li>
     </ul>
 
