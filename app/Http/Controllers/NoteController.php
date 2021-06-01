@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Http\Resources\NoteResource;
 use App\Http\Requests\NoteRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
@@ -19,10 +20,30 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         $title = 'Список всех записей';
-        $notes = Note::where(['user_id' => $request->user()->id])->with('theme:id,name')->get();
+        
+        $filter[] = ['user_id', '=' ,$request->user()->id];
+        $filterText[] = ['user_id', '=' ,$request->user()->id];
+        
+        if($request->has('q')){
+            
+            $q = $request->q;
+
+            if ($q) {
+                $filter[] = ['name', 'like', '%'.$q.'%'];
+                $filterText[] = ['text', 'like', '%'.$q.'%'];
+            }
+
+        }
+                
+        $notes = Note::where($filter)->orWhere($filterText)->with('theme:id,name')->get();
+        
+        if($request->wantsJson() || Str::startsWith(request()->path(), 'api')){
+            return response([ 'notes' => new NoteResource($notes), 'message' => 'Retrieved successfully'], 200);  
+        }
+
         return view('notes.list', compact('notes','title'));
     }
-    
+        
 
     /**
      * Store a newly created resource in storage.

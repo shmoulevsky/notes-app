@@ -63,9 +63,9 @@
           <i class="fas fa-search"></i>
         </a>
         <div class="navbar-search-block">
-          <form class="form-inline">
+          <form method="get" action="/notes" class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" name="q" type="search" placeholder="Поиск" aria-label="Search">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -110,10 +110,10 @@
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group" data-widget="sidebar-search2">
+          <input class="form-control search-note-input form-control-sidebar" type="search" placeholder="Поиск" aria-label="Search">
           <div class="input-group-append">
-            <button class="btn btn-sidebar">
+            <button class="btn btn-sidebar search-note-btn">
               <i class="fas fa-search fa-fw"></i>
             </button>
           </div>

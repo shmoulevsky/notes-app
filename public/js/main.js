@@ -51,6 +51,66 @@ $(function(){
               
          })
 
+         $(document).on('click', '.search-note-btn', function(e){
+             
+            var q = $('.search-note-input').val();
+                              
+             $.ajax({
+             url: "/api/notes",
+             type: "GET",
+             dataType: "json",
+                 data: ({q, api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
+             success: function(data, statusTitle, xhr){
+                   
+                 if(xhr.status == 200)
+                 {
+                    
+                    let html = '<div class="col-md-6">';
+
+                    for (const key in data.notes) {
+                   
+                    html += `<div id="note-${data.notes[key].id}" class="callout callout-success overflow-hidden position-relative note-${data.notes[key].id}">
+                    <a class="text-dark text-decoration-none" href="/notes/${data.notes[key].id}">  
+                      <h5>${data.notes[key].name}&nbsp;&nbsp;<span class="badge badge-primary">${data.notes[key].theme.name}</span></h5>
+                        <p>${data.notes[key].created_at}</p>
+                      </a>
+                      <div class="float-right position-relative ">
+                        <span data-id="${data.notes[key].id}" class="favor-icon favor-${data.notes[key].id} @if($note->is_favor !=  false) active @endif favor-note-btn"></span>
+                        <span class="view-count-icon">${data.notes[key].view_count}</span>
+                       
+                      </div>
+                      <button data-id="${data.notes[key].id}" type="button" class="close delete-note delete-note-btn" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>    
+                  </div>`;
+
+                    }
+                    
+                    html += `<div>`;
+
+                    if(data.notes.length == 0){
+                        html = '<p>нет записей</p>';
+                    }
+
+                    $('.main-content').html(html);
+                                        
+                    history.pushState('', 'Поиск', '/notes?q=' + q);
+
+                 }else{
+                    
+                    
+                 }
+                                    
+             },
+             error : function(e) {
+                console.log(e);
+             }
+             });
+          
+         e.preventDefault();
+              
+         })
+
          $(document).on('click', '.update-note-btn', function(e){
              
             let id = $(this).data('id');

@@ -19,6 +19,7 @@
         </button>    
     </div>
 @empty
+  <p>нет записей</p>
 @endforelse
 
 </div>         
