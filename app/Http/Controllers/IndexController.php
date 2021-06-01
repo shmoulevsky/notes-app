@@ -13,15 +13,4 @@ class IndexController extends Controller
         return view('index');
     }
 
-    public function showNote($id)
-    {
-        $userId = Auth::user()->id;
-        $note = Note::where(['user_id' => $userId, 'id' => $id])->first();
-
-        if(!$note){
-            abort(404);
-        }
-
-        return view('index', compact('note'));
-    }
 }

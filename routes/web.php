@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,13 @@ use App\Http\Controllers\ThemeController;
 Route::group(['middleware' => ['auth']], function () {
     
     Route::get('/', [IndexController::class, 'index'])->name('index');;
-    Route::get('/notes/{id}', [IndexController::class, 'showNote'])->name('show.note');;
+    Route::get('/notes', [NoteController::class, 'index'])->name('notes.list');
+    Route::get('/notes/favor', [NoteController::class, 'favor'])->name('notes.favor');    
+    Route::get('/notes/latest', [NoteController::class, 'latest'])->name('notes.latest');   
+    Route::get('/notes/top', [NoteController::class, 'top'])->name('notes.top');   
+    Route::get('/notes/{id}', [NoteController::class, 'showDetail'])->name('show.note');;
+   
+
     Route::get('/themes', [ThemeController::class, 'index'])->name('theme.index');;
 
 });

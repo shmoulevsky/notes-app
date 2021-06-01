@@ -16,9 +16,11 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $title = 'Список всех записей';
+        $notes = Note::where(['user_id' => $request->user()->id])->with('theme:id,name')->get();
+        return view('notes.list', compact('notes','title'));
     }
     
 
@@ -51,6 +53,20 @@ class NoteController extends Controller
         return response(['note' => new NoteResource($note), 'message' => 'Retrieved successfully'], 200);
     }
 
+
+    public function showDetail(Note $note, Request $request)
+    {
+        
+        $note = Note::where(['user_id' => $request->user()->id, 'id' => $request->id])->first();
+        if(!$note){
+            abort(404);
+        }
+        $note->view_count++;
+        $note->save();
+
+        return view('notes.detail', compact('note'));
+    }
+
     
     /**
      * Update the specified resource in storage.
@@ -70,6 +86,16 @@ class NoteController extends Controller
         return response(['project' => new NoteResource($note), 'message' => 'Update successfully'], 200);
     }
 
+    public function changeFavor(int $id)
+    {
+        
+        $note = Note::findOrFail($id);
+        $note->is_favor = !$note->is_favor;
+        $note->save();
+
+        return response(['project' => new NoteResource($note), 'message' => 'Update successfully'], 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -78,6 +104,30 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+        return response(['message' => 'Deleted']);
     }
+
+    public function favor(Request $request)
+    {
+        $title = 'Избранное';
+        $notes = Note::where(['user_id' => $request->user()->id, 'is_favor' => true])->get();
+        return view('notes.list', compact('notes','title'));
+    }
+
+    public function latest(Request $request)
+    {
+        $title = 'Последние добавленные';
+        $notes = Note::where(['user_id' => $request->user()->id])->orderBy('id', 'desc')->limit(10)->get();
+        return view('notes.list', compact('notes','title'));
+    }
+
+    public function top(Request $request)
+    {
+        $title = 'Топ записей';
+        $notes = Note::where(['user_id' => $request->user()->id])->orderBy('view_count', 'desc')->limit(10)->get();
+
+        return view('notes.list', compact('notes','title'));
+    }
+
 }

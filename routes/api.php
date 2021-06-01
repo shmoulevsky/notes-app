@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('notes/{id}', [NoteController::class, 'show']);
+
+Route::get('/notes/changeFavor/{id}', [NoteController::class, 'changeFavor']);
 Route::apiResource('notes', NoteController::class)->middleware('auth:api');
 Route::apiResource('themes', ThemeController::class)->middleware('auth:api');

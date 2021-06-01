@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Theme;
 
 class Note extends Model
 {
@@ -20,6 +19,6 @@ class Note extends Model
 
     public function theme()
     {
-        return $this->belongsTo(Theme::class);
+        return $this->belongsTo('App\Models\Theme');
     }
 }

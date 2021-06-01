@@ -24,6 +24,11 @@ $(function(){
                  if(xhr.status == 200)
                  {
                     
+                    let html = `<div contenteditable="true" class="note-wrap" style="width: 100%; min-height: 300px; margin-bottom: 30px;" class="col-12"></div>
+                    <button type="button" class="btn btn-primary update-note-btn float-right">Сохранить</button> 
+                    `;
+
+                    $('.main-content').html(html);
                     $('.note-wrap').html(data.note.text);
                     $('.note-title').html(data.note.name);
                     $('.update-note-btn').data('id', id);
@@ -46,7 +51,7 @@ $(function(){
               
          })
 
-         $(".update-note-btn").click(function(e){
+         $(document).on('click', '.update-note-btn', function(e){
              
             let id = $(this).data('id');
             let name = $('.note-title').text();
@@ -81,6 +86,38 @@ $(function(){
               
          })
 
+         $(document).on('click', '.delete-note-btn', function(e){
+             
+            let id = $(this).data('id');
+            
+             $.ajax({
+             url: "/api/notes/" + id,
+             type: "DELETE",
+             dataType: "json",
+                 data: ({api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
+             success: function(data, statusTitle, xhr){
+                   
+                 if(xhr.status == 200)
+                 {
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+
+                    $('.note-' + id).fadeOut();
+                 }
+                                    
+             },
+             error : function(e) {
+                console.log(e);
+             }
+             });
+          
+         e.preventDefault();
+              
+         })
+
          
 
          $('#add-note-modal').on('shown.bs.modal', function (e) {
@@ -94,7 +131,7 @@ $(function(){
 
         
 
-         $(".add-note-btn").click(function(e){
+         $(document).on('click', '.add-note-btn', function(e){
              
             
             let name = $('#note-title').val();
@@ -139,7 +176,39 @@ $(function(){
               
          })
 
-         $(".add-theme-btn").click(function(e){
+         $(document).on('click', '.favor-note-btn', function(e){
+             
+            let id = $(this).data('id');
+            
+             $.ajax({
+             url: "/api/notes/changeFavor/" + id,
+             type: "GET",
+             dataType: "json",
+                 data: ({api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
+             success: function(data, statusTitle, xhr){
+                   
+                 if(xhr.status == 200)
+                 {
+                    
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.message
+                    });
+
+                    $('.favor-' + id).toggleClass('active');
+                 }
+                                    
+             },
+             error : function(e) {
+                console.log(e);
+             }
+             });
+          
+         e.preventDefault();
+              
+         })
+
+         $(document).on('click', '.add-theme-btn', function(e){
              
             
             let name = $('#theme-title').val();

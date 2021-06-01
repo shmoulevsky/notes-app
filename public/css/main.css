@@ -1,0 +1,41 @@
+.delete-note{
+    position: absolute;
+    top:10px;
+    right: 10px;
+}
+
+.favor-icon{
+    background-image: url(/img/favorite-icons.png);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background-position: 0px 0px;
+    left: 50px;
+    top: 0px;
+    display: block;
+}
+
+.favor-icon.active{
+    background-position: -24px 0px;
+}
+
+.view-count-icon{
+    position: relative;
+    padding-left: 30px;
+    margin-right: 50px;
+}
+
+.view-count-icon:before{
+    content: '';
+    background-image: url(/img/view.svg);
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    background-position: 0px 0px;
+    background-size: contain;
+    left: 0px;
+    top: -1px;
+    display: block;
+}

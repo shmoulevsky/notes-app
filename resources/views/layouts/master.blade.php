@@ -15,6 +15,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/css/adminlte.min.css">
   <link rel="stylesheet" href="/css/sweetalert2.min.css">
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <!--
 `body` tag options:
@@ -36,6 +37,18 @@
       </li>
       <li class="d-sm-inline-block">
         <a class="nav-link" href="/"  >Главная</a>
+      </li>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/notes">Все записи</a>
+      </li>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/notes/favor">Избранное</a>
+      </li>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/notes/latest">Последние 10</a>
+      </li>
+      <li class="d-sm-inline-block">
+        <a class="nav-link" href="/notes/top">Топ 10</a>
       </li>
       <li class="d-sm-inline-block">
         <a class="nav-link" href="/themes">Темы</a>
@@ -134,7 +147,7 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row main-content">
           @yield('content')
         </div>
         <!-- /.row -->
@@ -157,6 +170,7 @@
     All rights reserved.
   </footer>
 </div>
+@include('modals.add-note')
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
