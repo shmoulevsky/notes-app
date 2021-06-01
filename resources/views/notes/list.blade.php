@@ -10,7 +10,7 @@
           <p>{{$note->created_at}}</p>
         </a>
         <div class="float-right position-relative ">
-          <span data-id="{{$note->id}}" class="favor-icon favor-{{$note->id}} @if($note->is_favor ===  true) active @endif favor-note-btn"></span>
+          <span data-id="{{$note->id}}" class="favor-icon favor-{{$note->id}} @if($note->is_favor !=  false) active @endif favor-note-btn"></span>
           <span class="view-count-icon">{{$note->view_count}}</span>
          
         </div>
