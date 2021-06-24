@@ -117,12 +117,31 @@ $(function(){
             let name = $('.note-title').text();
             let text = $('.note-wrap').html();
             let theme_id = $(this).data('theme-id');
+            let formData = new FormData();
             
+            formData.append('id', id);
+            formData.append('name', name);
+            formData.append('text', text);
+            formData.append('theme_id', theme_id);
+            formData.append('is_active', true);
+            formData.append('api_token', 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq');
+            formData.append('_method', 'PATCH');
+
+            $(".files").each(function(i, field) {
+                
+                const file = field.files[0];
+                formData.append('files[]', file);
+                console.log(file);
+
+            });
+
              $.ajax({
              url: "/api/notes/" + id,
-             type: "PATCH",
+             type: "POST",
+             processData: false,
+             contentType: false,
              dataType: "json",
-                 data: ({name, text, theme_id, is_active : true, api_token : 'caf0ddeWXZ56PWfJVuvoKVuvpvNWQXhOiCZkFaWybQNW3fZq3SnMwP1Y11eq'}),
+                 data: formData,
              success: function(data, statusTitle, xhr){
                    
                  if(xhr.status == 200)
@@ -197,7 +216,7 @@ $(function(){
             let name = $('#note-title').val();
             let theme_id = $(this).data('id');
             
-            console.log(name);
+           
 
              $.ajax({
              url: "/api/notes",
@@ -274,8 +293,6 @@ $(function(){
             let name = $('#theme-title').val();
             let description = $('#theme-description').val();
             
-            
-            console.log(name);
 
              $.ajax({
              url: "/api/themes",
@@ -286,10 +303,7 @@ $(function(){
                    
                  if(xhr.status == 201)
                  {
-                    //let item = ``;
-
-                    //$('#theme-'+theme_id).append(item);
-
+                    
                     Toast.fire({
                         icon: 'success',
                         title: data.message

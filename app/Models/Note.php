@@ -19,6 +19,11 @@ class Note extends Model
 
     public function theme()
     {
-        return $this->belongsTo('App\Models\Theme');
+        return $this->belongsTo(Theme::class);
+    }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }
