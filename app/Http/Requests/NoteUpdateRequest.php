@@ -28,8 +28,8 @@ class NoteUpdateRequest extends FormRequest
             'name' => 'required|max:255',
             'text' => 'required',
             'is_active' => 'required',
-            'theme_id' => ['required', 'exists:themes,id'],
-            'files.*' => ['file','max:8000'],
+            'theme_id' => 'required|exists:themes,id',
+            'files.*' => 'file|sometimes',
         ];
     }
 
@@ -37,6 +37,6 @@ class NoteUpdateRequest extends FormRequest
     {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
-    
+
 
 }

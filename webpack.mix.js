@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'public/css', [
+mix.js(
+        ['resources/js/app.js',
+            'node_modules/admin-lte/plugins/jquery/jquery.js',
+            'node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js',
+            'node_modules/admin-lte/plugins/chart.js/Chart.js',
+            'node_modules/admin-lte/build/js/AdminLTE.js',
+            'node_modules/admin-lte/plugins/sweetalert2/sweetalert2.js',
+    ], 'public/js').postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),
     require('autoprefixer'),

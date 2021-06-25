@@ -9,13 +9,13 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="/css/fontawesome/all.min.css">
-  <!-- IonIcons -->
-  <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/css/adminlte.min.css">
-  <link rel="stylesheet" href="/css/sweetalert2.min.css">
-  <link rel="stylesheet" href="/css/main.css">
+   <!-- IonIcons -->
+  <link rel="stylesheet" href="/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer></script>
+
+
 </head>
 <!--
 `body` tag options:
@@ -78,7 +78,7 @@
           </form>
         </div>
       </li>
-      
+
       <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -104,7 +104,7 @@
           <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{$user->name ?? ''}}</a>
+          <a href="#" class="d-block">Привет, {{auth()->user()->name }}</a>
         </div>
       </div>
 
@@ -133,12 +133,7 @@
           <div class="col-sm-6">
             <h1 contenteditable="true" class="m-0 main-title note-title">@yield('title')</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v3</li>
-            </ol>
-          </div><!-- /.col -->
+
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -175,17 +170,7 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="/js/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE -->
-<script src="/js/adminlte.js"></script>
-<script src="/js/main.js"></script>
 
-<!-- OPTIONAL SCRIPTS -->
-<script src="/js/Chart.min.js"></script>
-<script src="/js/sweetalert2.min.js"></script>
 
 </body>
 </html>

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/notes/changeFavor/{id}', [NoteController::class, 'changeFavor']);
 Route::apiResource('notes', NoteController::class)->middleware('auth:api');
 Route::apiResource('themes', ThemeController::class)->middleware('auth:api');
+Route::delete('/files/{file}', [FileController::class, 'destroy'])->middleware('auth:api');

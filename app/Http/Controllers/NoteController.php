@@ -22,10 +22,10 @@ class NoteController extends Controller
     public function index(Request $request)
     {
         $title = 'Список всех записей';
-        
+
         $filter[] = ['user_id', '=' ,$request->user()->id];
         $filterText[] = ['user_id', '=' ,$request->user()->id];
-        
+
         if ($request->has('q')) {
             $q = $request->q;
 
@@ -34,16 +34,16 @@ class NoteController extends Controller
                 $filterText[] = ['text', 'like', '%'.$q.'%'];
             }
         }
-                
+
         $notes = Note::where($filter)->orWhere($filterText)->with('theme:id,name')->get();
-        
+
         if ($request->wantsJson() || Str::startsWith(request()->path(), 'api')) {
             return response([ 'notes' => new NoteResource($notes), 'message' => 'Retrieved successfully'], 200);
         }
 
         return view('notes.list', compact('notes', 'title'));
     }
-        
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +54,7 @@ class NoteController extends Controller
     public function store(NoteCreateRequest $request)
     {
         $data = $request->validated();
-        
+
         $data['user_id'] = Auth::user()->id;
         $data['is_active'] = intval($data['is_active']);
 
@@ -87,7 +87,7 @@ class NoteController extends Controller
         return view('notes.detail', compact('note'));
     }
 
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -100,18 +100,20 @@ class NoteController extends Controller
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
         $data['is_active'] = intval($data['is_active']);
-        //dd($request->validated());
-        foreach ($data['files'] as $key => $fileInfo) {
-            
-            $path = $fileInfo->store('documents'); 
-            $file = new File();
-            $file->name = pathinfo($path)['basename'];
-            $file->original_name = $fileInfo->getClientOriginalName();
-            $file->url = $path;
-            $file->user_id = $data['user_id'];
-            $file->description = '';
 
-            $note->files()->save($file);
+        if(isset($data['files'])){
+            foreach ($data['files'] as $key => $fileInfo) {
+
+                $path = $fileInfo->store('public/documents');
+                $file = new File();
+                $file->name = pathinfo($path)['basename'];
+                $file->original_name = $fileInfo->getClientOriginalName();
+                $file->url = str_replace('public/', '', $path);
+                $file->user_id = $data['user_id'];
+                $file->description = '';
+
+                $note->files()->save($file);
+            }
         }
 
         $note->update($data);
